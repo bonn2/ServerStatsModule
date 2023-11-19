@@ -1,4 +1,4 @@
-package net.bonn2;
+package net.bonn2.serverstats;
 
 import net.bonn2.modules.Module;
 import net.bonn2.modules.settings.Settings;
