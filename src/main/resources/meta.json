@@ -1,10 +1,8 @@
 {
-  "main": "net.bonn2.Main",
-  "name": "ExternalTest",
+  "main": "net.bonn2.serverstats.Main",
+  "name": "ServerStats",
   "author": "bonn2",
-  "description": "Example external module",
+  "description": "Display server statistics",
   "version": "1.0",
-  "depends": [
-    "Settings"
-  ]
+  "depends": []
 }
