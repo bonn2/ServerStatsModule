@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,7 +37,7 @@ public class ChannelUpdater {
                 List<Member> members = guild.loadMembers().get();
                 File statsFile = new File(statsFolder + File.separator + filename + File.separator + "stats.json");
                 try (FileInputStream is = new FileInputStream(statsFile)) {
-                    JsonArray jsonArray = new Gson().fromJson(new String(is.readAllBytes()), JsonArray.class);
+                    JsonArray jsonArray = new Gson().fromJson(new String(is.readAllBytes(), StandardCharsets.UTF_8), JsonArray.class);
                     if (jsonArray == null) return;
                     for (JsonElement jsonElement : jsonArray.asList()) {
                         if (jsonElement instanceof JsonObject jsonObject) {

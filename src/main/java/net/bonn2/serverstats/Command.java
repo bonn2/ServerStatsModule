@@ -45,7 +45,7 @@ public class Command extends ListenerAdapter {
                     File statsFile = new File(statsFolder + File.separator + "stats.json");
                     statsFile.createNewFile();
                     try (FileInputStream is = new FileInputStream(statsFile)) {
-                        JsonArray jsonArray = new Gson().fromJson(new String(is.readAllBytes()), JsonArray.class);
+                        JsonArray jsonArray = new Gson().fromJson(new String(is.readAllBytes(), StandardCharsets.UTF_8), JsonArray.class);
                         is.close();
                         if (jsonArray == null) jsonArray = new JsonArray();
                         JsonObject jsonObject = new JsonObject();
