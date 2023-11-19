@@ -50,8 +50,13 @@ public class ChannelUpdater {
                                     long count = 0;
                                     for (Member member : members)
                                         if (member.getRoles().contains(role)) count++;
-                                    if (!channel.getName().equals(role.getName() + ": " + count))
-                                        channel.getManager().setName(role.getName() + ": " + count).queue();
+                                    if (jsonObject.get("display_name").getAsString().isEmpty()) {
+                                        if (!channel.getName().equals(role.getName() + ": " + count))
+                                            channel.getManager().setName(role.getName() + ": " + count).queue();
+                                    } else {
+                                        if (!channel.getName().equals(jsonObject.get("display_name").getAsString() + ": " + count))
+                                            channel.getManager().setName(jsonObject.get("display_name").getAsString() + ": " + count).queue();
+                                    }
                                 }
                             }
                         }

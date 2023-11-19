@@ -26,9 +26,15 @@ public class Command extends ListenerAdapter {
                 event.deferReply(true).queue();
                 Role role = event.getOption("role").getAsRole();
                 long count = 0;
-                for (Member member : event.getGuild().loadMembers().get())
+                for (Member member : event.getGuild().getMembers())
                     if (member.getRoles().contains(role)) count++;
-                VoiceChannel channel = event.getGuild().createVoiceChannel(role.getName() + ": " + count).complete();
+                String displayName = event.getOption("display_name").getAsString();
+                VoiceChannel channel;
+                if (displayName.isEmpty()) {
+                    channel = event.getGuild().createVoiceChannel(role.getName() + ": " + count).complete();
+                } else {
+                    channel = event.getGuild().createVoiceChannel(event.getOption("display_name").getAsString() + ": " + count).complete();
+                }
                 File statsFolder = new File(
                         Bot.localPath + File.separator +
                                 "serverstats" + File.separator +
@@ -46,6 +52,7 @@ public class Command extends ListenerAdapter {
                         jsonObject.add("type", new JsonPrimitive("role"));
                         jsonObject.add("channel_id", new JsonPrimitive(channel.getId()));
                         jsonObject.add("role_id", new JsonPrimitive(role.getId()));
+                        jsonObject.add("display_name", new JsonPrimitive(displayName));
                         jsonArray.add(jsonObject);
                         try (FileOutputStream os = new FileOutputStream(statsFile)) {
                             os.write(
