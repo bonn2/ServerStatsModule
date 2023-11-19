@@ -1,0 +1,10 @@
+{
+  "main": "net.bonn2.Main",
+  "name": "ExternalTest",
+  "author": "bonn2",
+  "description": "Example external module",
+  "version": "1.0",
+  "depends": [
+    "Settings"
+  ]
+}
