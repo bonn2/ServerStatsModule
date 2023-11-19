@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +33,7 @@ public class ChannelUpdater {
             for (String filename : statsFolder.list()) {
                 Guild guild = Bot.jda.getGuildById(filename);
                 if (guild == null) return;
+                List<Member> members = guild.loadMembers().get();
                 File statsFile = new File(statsFolder + File.separator + filename + File.separator + "stats.json");
                 try (FileInputStream is = new FileInputStream(statsFile)) {
                     JsonArray jsonArray = new Gson().fromJson(new String(is.readAllBytes()), JsonArray.class);
@@ -46,7 +48,7 @@ public class ChannelUpdater {
                                     if (channel == null) return;
                                     if (role == null) return;
                                     long count = 0;
-                                    for (Member member : guild.getMembers())
+                                    for (Member member : members)
                                         if (member.getRoles().contains(role)) count++;
                                     if (!channel.getName().equals(role.getName() + ": " + count))
                                         channel.getManager().setName(role.getName() + ": " + count).queue();

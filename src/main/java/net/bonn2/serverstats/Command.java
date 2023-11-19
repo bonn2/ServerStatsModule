@@ -26,7 +26,7 @@ public class Command extends ListenerAdapter {
                 event.deferReply(true).queue();
                 Role role = event.getOption("role").getAsRole();
                 long count = 0;
-                for (Member member : event.getGuild().getMembers())
+                for (Member member : event.getGuild().loadMembers().get())
                     if (member.getRoles().contains(role)) count++;
                 VoiceChannel channel = event.getGuild().createVoiceChannel(role.getName() + ": " + count).complete();
                 File statsFolder = new File(
