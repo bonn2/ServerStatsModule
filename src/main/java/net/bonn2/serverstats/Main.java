@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 
 public class Main extends Module {
 
+    ChannelUpdater channelUpdater;
+
     @Override
     public void registerLoggingChannels() {
 
@@ -22,6 +24,7 @@ public class Main extends Module {
     @Override
     public void load() {
         Bot.jda.addEventListener(new Command());
+        channelUpdater = new ChannelUpdater(3600);
     }
 
     @Override
