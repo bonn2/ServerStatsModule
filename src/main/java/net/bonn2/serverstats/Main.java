@@ -2,6 +2,7 @@ package net.bonn2.serverstats;
 
 import net.bonn2.Bot;
 import net.bonn2.modules.Module;
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -43,7 +44,7 @@ public class Main extends Module {
                                 "A role to track",
                                 true
                         )
-                )
+                ).setDefaultPermissions(DefaultMemberPermissions.DISABLED)
         };
     }
 }
