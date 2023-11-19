@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class ChannelUpdater {
     Timer timer;
@@ -26,7 +27,6 @@ public class ChannelUpdater {
 
     static class UpdaterTask extends TimerTask {
         public void run() {
-            Bot.logger.info("hi");
             File statsFolder = new File(Bot.localPath + File.separator + "serverstats");
             if (!statsFolder.exists()) return;
             for (String filename : statsFolder.list()) {
@@ -56,6 +56,11 @@ public class ChannelUpdater {
                     }
                 } catch (IOException e) {
                     return;
+                }
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
             }
         }
